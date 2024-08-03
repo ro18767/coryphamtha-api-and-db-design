@@ -1,0 +1,6 @@
+products2product_fiterter_tags
+    id INT NOT NULL AUTO_INCREMENT
+    product_fiterter_tags_id INT NOT NULL
+        product_fiterter_tags.id
+    product_id INT NOT NULL
+        products.id
