@@ -1,0 +1,154 @@
+Request:
+    GET /api/products/:id(\\d+)?add_categories=:add_categories(0|1)&add_tags=:add_tags(0|1)
+    Headers:
+        Accept: "application/json; charset=utf-8"
+/** 
+если какието даные не корректные
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий продукт не існує",
+            "input": {
+                "id": {
+                    "valid": false,
+                    "message": "id має бути тільки из цифр",
+                },
+                "add_categories": {
+                    "valid": false,
+                    "message": "add_categories має бути 0 чи 1 або бути відсутним",
+                },
+                "add_tags": {
+                    "valid": false,
+                    "message": "add_categories має бути 0 чи 1 або бути відсутним",
+                },
+            },
+        }
+/** 
+или если пользователь НЕ существует
+или если нет доступа
+*/
+Response:
+    404 Not Found
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий продукт не існує",
+            "input": {
+                "id": {
+                    "valid": false,
+                    "message": "Такий продукт не існує",
+                },
+            },
+        }
+Response:
+    200 OK
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"success",
+            "data": { // таблица products
+                "id": 123,
+                "title": "Бантик оксамитовий", // или null или undefined
+                "vendor_code": "111156",
+                "price": 268,
+                "availability": 3,
+                "description": "Бантик оксамитовий сірий 23 х 25 см, вроблений з матеріалу вельвет у магазині Ботаніка по кращій ціні. \\nВеликий асортимент товарів у категорії Бантики з доставкою по Україні.",
+                /* 
+                если
+                add_categories = 1
+                то то добавить "categories" в Response
+                */
+                "categories": [ 
+                /*
+                у
+                таблица product_categories: 
+                    products.category_id = product_categories.id
+                    и циклично product_categories sub_category, product_categories main_category 
+                    sub_category.main = main_category.id AND main_category.level >= 0 AND sub_category.level > main_category.level
+                или пустой масив 
+                отсортировано по product_categories.level DESC
+                */
+                    { 
+                        "id": 345,
+                        "title": "Бантики",
+                        "level": 2,
+                        "main": 234,
+                    },
+                    { 
+                        "id": 234,
+                        "title": "Ялинкові прикраси",
+                        "level": 1,
+                        "main": 123,
+                    },
+                    { 
+                        "id": 123,
+                        "title": "Новий рік та Різдво",
+                        "level": 0,
+                        "main": 0,
+                    },
+                ],
+                /* 
+                если
+                add_tags = 1
+                то то добавить "tags" в Response
+                */
+                "tags": [ 
+                /*
+                таблица product_fiterter_tags: 
+                    products.id = products2product_fiterter_tags.product_id
+                    products2product_fiterter_tags.product_fiterter_tags_id = product_fiterter_tags.id
+                или пустой масив
+                */ 
+                    { 
+                        "id": 123,
+                        "product_fiterter_tag_category_id": 456,
+                        "title": "Сірий",
+                    },
+                    { 
+                        "id": 234,
+                        "product_fiterter_tag_category_id": 567,
+                        "title": "Вельвет",
+                    },
+                    { 
+                        "id": 345,
+                        "product_fiterter_tag_category_id": 678,
+                        "title": "Новий рік",
+                    },
+                ],
+                                /* 
+                если
+                add_tags = 1
+                то то добавить "tag_categories" в Response
+                */
+                tag_categories: [
+                /*
+                таблица product_fiterter_tag_categories: 
+                    products.id = products2product_fiterter_tags.product_id
+                    products2product_fiterter_tags.product_fiterter_tags_id = product_fiterter_tags.id
+                    product_fiterter_tags.product_fiterter_tag_category_id = product_fiterter_tag_categories.id
+                или пустой масив
+                */ 
+                    { 
+                        "id": 456,
+                        "title": "Колір",
+                    },
+                    { 
+                        "id": 567,
+                        "title": "Матеріал",
+                    },
+                    { 
+                        "id": 678,
+                        "title": "Подія",
+                    },
+                ]
+
+            },
+        }
