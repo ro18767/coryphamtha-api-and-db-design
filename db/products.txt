@@ -1,0 +1,16 @@
+products
+    id INT NOT NULL AUTO_INCREMENT
+    title varchar(100) NULL
+        название продукта
+    vendor_code varchar(100) NOT NULL
+        код производителя 
+        для примера 111156 или SUPERBANTIK9000
+    price INT NOT NULL
+        categories.id
+        0 != id для того чтоб найти под подкатеголии;
+    availability tinyint NOT NULL
+        Наявність
+        0 = Немає в наявності
+        1 = Тимчасово немає
+        2 = Закінчується
+        3 = Є в наявності
