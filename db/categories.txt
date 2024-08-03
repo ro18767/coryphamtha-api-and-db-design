@@ -1,3 +1,12 @@
 categories
     id
     title varchar(100) NULL
+    level tinyint(1) NOT NULL
+        0 = главная котегория;
+        1 = под котегория;
+        2 = под под котегория;
+    main_category NOT NULL
+        categories.id
+        0 != id для того чтоб найти под подкатеголии;
+        
+    
