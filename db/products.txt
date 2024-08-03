@@ -13,3 +13,5 @@ products
         1 = Тимчасово немає
         2 = Закінчується
         3 = Є в наявності
+    description varchar(500) NOT NULL
+        Опис
