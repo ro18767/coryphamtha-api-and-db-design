@@ -6,7 +6,6 @@ products
         код производителя 
         для примера 111156 или SUPERBANTIK9000
     price INT NOT NULL
-        categories.id
         0 != id для того чтоб найти под подкатеголии;
     availability tinyint NOT NULL
         Наявність
