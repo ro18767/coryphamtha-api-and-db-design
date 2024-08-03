@@ -13,5 +13,7 @@ products
         1 = Тимчасово немає
         2 = Закінчується
         3 = Є в наявності
+    category_id INT NOT NULL
+        product_categories.id
     description varchar(500) NOT NULL
         Опис
