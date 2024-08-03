@@ -1,6 +1,0 @@
-products2product_categories
-    id INT NOT NULL AUTO_INCREMENT
-    category_id INT NOT NULL
-        product_categories.id
-    product_id INT NOT NULL
-        products.id
