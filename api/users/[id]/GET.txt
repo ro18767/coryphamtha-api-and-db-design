@@ -1,0 +1,64 @@
+
+/** 
+это запрос на даные пользователя
+
+бекенд
+    проверка какой пользователь зарегистрирован
+    session_start();
+
+    $userId = 0;
+    isset($_SESSION['userId']) {
+        $userId = $_SESSION['userId']; // таблица users поле id
+    }
+    if($userId !== $requstedId) { // доступ только к своим даным
+        // http 403 Forbidden
+        exit;
+    }
+*/
+Request:
+    POST /api/users/[id]
+    Headers:
+        Accept: "application/json; charset=utf-8"
+/** 
+или если пользователь НЕ существует
+или если нет доступа
+*/
+Response:
+    404 Not Found
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий аккаунт не існує",
+            "input": {
+                "id": {
+                    "valid": false,
+                    "message": "Такий аккаунт не існує",
+                },
+            },
+        }
+Response:
+    200 OK
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"success",
+            "data": { // таблица users
+                "id": 123,
+                "email": "example@.example.com", // или null или undefined
+                "phone": "+380123456789",
+                "address": { // таблица addresses: users.address_id = addresses.id // или null или undefined
+                    "id": 12,
+                    "region": "Одеська",
+                    "city": "Одеса",
+                    "street": "Генерала Бочарова",
+                    "house": "12 кв. 273",
+                },
+                "sex": 1,
+                "firstName": "Петро", // или null или undefined
+                "lastName": "Пупкин", // или null или undefined
+                "birthday": "2000-02-29", // YYYY-MM-DD или null или undefined
+            },
+        }

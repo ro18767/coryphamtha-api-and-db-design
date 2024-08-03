@@ -1,0 +1,78 @@
+
+/** 
+это Реєстрація 
+*/
+Request:
+    POST /api/users/request_phone_code
+    Headers:
+        Accept: "application/json; charset=utf-8"
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            data": { // таблица users
+                /** 
+                max length 15 
+                */
+                "phone": "+380123456789",// required
+            },
+        }
+/** 
+если даные отсуцтвуют или или с ошибками
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Заповніть всі обов'язкові поля",
+            "input": {
+                "phone": {
+                    "valid": false, // если валидно то true
+                },
+            },
+        }
+/** 
+если пользователь с потвержденым телефоном уже существует
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Аккаунт з таким телефоном вже існує",
+            "input": {
+                "phone": {
+                    "valid": false,
+                    "message": "Аккаунт з таким телефоном вже існує",
+                },
+            },
+        }
+/** 
+если создали пользователя или пользователь еще не потвержденым телефон
+фронтенд
+    console.debug(body._debug);
+*/
+Response:
+    200 OK
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"success",
+            "data": { // таблица users
+                /** 
+                max length 15 
+                */
+                "phone": "+380123456789",
+            },
+            "_debug": {
+                /** 
+                поки немає верифікації телефону працюємо так
+                */
+                "phoneVerificationCode": "12345", // таблица users поле phoneVerificationCode
+            }, 
+        }

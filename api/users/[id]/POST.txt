@@ -1,0 +1,95 @@
+
+/** 
+это запрос наизменение даных пользователя
+каждое поле можно не включать в запрос
+users.phone нельзя менять
+
+бекенд
+    проверка какой пользователь зарегистрирован
+    session_start();
+
+    $userId = 0;
+    isset($_SESSION['userId']) {
+        $userId = $_SESSION['userId']; // таблица users поле id
+    }
+    if($userId !== $requstedId) { // доступ только к своим даным
+        // http 403 Forbidden
+        exit;
+    }
+*/
+Request:
+    POST /api/users/[id]
+    Headers:
+        Accept: "application/json; charset=utf-8"
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            data": { // таблица users
+                "email": "example@.example.com", // или null или undefined //optional
+                "address": { // таблица addresses: users.address_id = addresses.id //optional
+                    "region": "Одеська", //optional
+                    "city": "Одеса", //optional
+                    "street": "Генерала Бочарова", //optional
+                    "house": "12 кв. 273", //optional
+                },
+                "sex": 1, //optional
+                "firstName": "Петро", // или null или undefined //optional
+                "lastName": "Пупкин", // или null или undefined //optional
+                "birthday": "2000-02-29", // YYYY-MM-DD или null или undefined //optional
+            },
+        }
+/** 
+или если пользователь НЕ существует
+или если нет доступа
+*/
+Response:
+    404 Not Found
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий аккаунт не існує",
+            "input": {
+                "id": {
+                    "valid": false,
+                    "message": "Такий аккаунт не існує",
+                },
+                
+            },
+        }
+/** 
+если какието даные не корректные
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий аккаунт не існує",
+            "input": {
+                "birthday": {
+                    "valid": false,
+                    "message": "Непраправильный формат даты",
+                },
+                // если это адрес (для примера)
+                "address": { // таблица addresses: users.address_id = addresses.id 
+                    "valid": false,
+                    "message": "Тут Щось не так",
+                },
+                
+            },
+        }
+/** 
+если какието все даные корректные и изменино успешно
+*/
+Response:
+    200 OK
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+             "type":"success",
+        }

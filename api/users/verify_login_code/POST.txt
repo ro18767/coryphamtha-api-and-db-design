@@ -1,0 +1,98 @@
+
+/** 
+это Вхід 
+*/
+Request:
+    POST /api/users/verify_login_code
+    Headers:
+        Accept: "application/json; charset=utf-8"
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "data"": { // таблица users
+                "phone": "+380123456789",// required
+                "loginVerificationCode": "12345",// required
+            }
+        }
+/** 
+если даные отсуцтвуют или или с ошибками
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Заповніть всі обов'язкові поля",
+            "input": {
+                "phone": {
+                    "valid": false, // если валидно то true
+                },
+                "loginVerificationCode": {
+                    valid": false, // если валидно то true
+                },
+            },
+        }
+/** 
+если код меньше 5 символов
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "код має складатися з п'яти символів",
+            "input": {
+                "phone": {
+                    "valid": true,
+                },
+                "loginVerificationCode": {
+                    valid": false,
+                    "message": "Код має складатися з п'яти символів",
+                },
+            },
+        }
+/** 
+или если пользователь с таким телефоном не существует
+или если пользователь с телефоном не существует но код не правильный
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Неправильний код або аккаунта за цим номером телуфона не існує",
+            "input": {
+                "phone": {
+                    "valid": false,
+                    "message": "Перевірте номер телефону",
+                },
+                "loginVerificationCode": {
+                    valid": false,
+                    "message": "Перевірте код",
+                },
+            },
+        }
+/** 
+если верификация успешна
+бекенд
+    сохраняй в чечию что это наш пользователь
+    session_start();
+    $_SESSION['userId'] = 123; // таблица users поле id
+*/
+Response:
+    200 OK
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"success",
+            "data": {  // таблица users
+                "id": 123,
+            },
+        }
