@@ -1,0 +1,31 @@
+users
+    id
+    email varchar(320) NULL
+        Email 
+    emailVerificationCode char(5) NOT NULL
+        згенерований код для підтвердження
+        тільки цифри 0-9
+        пока не используется
+    phone varchar(15) NULL UNIQUE
+        телефон
+    phoneVerificationCode char(5) NULL
+        згенерований код для підтвердження
+        тільки цифри 0-9
+    loginVerificationCode char(5) NULL
+        згенерований код для підтвердження
+        тільки цифри 0-9
+    address_id NOT NULL
+        addresses.id
+    sex tinyint(1) NOT NULL
+        Стать
+        ISO/IEC 5218
+        0 = Not known;
+        1 = Male;
+        2 = Female;
+        9 = Not applicable.
+    firstName varchar(100) NULL
+        Ім'я
+    lastName varchar(100) NULL
+        Прізвище
+    birthday DATE NULL
+        Дата народження
