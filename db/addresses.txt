@@ -1,0 +1,10 @@
+addresses
+    id
+    region varchar(100) NULL
+        область
+    city varchar(100) NULL
+        город
+    street varchar(100) NULL
+        Вулиця
+    house varchar(100) NULL
+        Номер будинку / квартири
