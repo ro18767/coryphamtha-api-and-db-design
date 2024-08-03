@@ -16,7 +16,7 @@
     }
 */
 Request:
-    POST /api/users/[id]
+    GET /api/users/[id]
     Headers:
         Accept: "application/json; charset=utf-8"
 /** 
