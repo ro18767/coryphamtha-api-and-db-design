@@ -16,9 +16,31 @@
     }
 */
 Request:
-    GET /api/users/[id]
+    GET /api/users/:id(\\d+)?add_address=:add_address(0|1)
     Headers:
         Accept: "application/json; charset=utf-8"
+/** 
+если какието даные не корректные
+*/
+Response:
+    400 Bad Request
+    Headers:
+        Content-Type: "application/json; charset=utf-8"
+    Body:
+        {
+            "type":"error",
+            "message": "Такий аккаунт не існує",
+            "input": {
+                "id": {
+                    "valid": false,
+                    "message": "id має бути тільки из цифр",
+                },
+                "add_address": {
+                    "valid": false,
+                    "message": "add_address має бути 0 чи 1 або бути відсутним",
+                },
+            },
+        }
 /** 
 или если пользователь НЕ существует
 или если нет доступа
@@ -49,6 +71,11 @@ Response:
                 "id": 123,
                 "email": "example@.example.com", // или null или undefined
                 "phone": "+380123456789",
+                /* 
+                если
+                add_address = 1
+                то то добавить "address" в Response
+                */
                 "address": { // таблица addresses: users.address_id = addresses.id // или null или undefined
                     "id": 12,
                     "region": "Одеська",
