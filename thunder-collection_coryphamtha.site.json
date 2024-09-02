@@ -1,0 +1,62 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "coryphamtha.site",
+    "collectionId": "90015af8-dd1e-4f91-ace7-95077094506c",
+    "dateExported": "2024-09-02T12:18:51.912Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "f8eb2ce2-b210-481b-bcd1-00e09fa5e1ba",
+            "name": "users",
+            "containerId": "d20bc283-637d-4808-b9e6-460808e082fd",
+            "created": "2024-09-02T12:13:26.882Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "d20bc283-637d-4808-b9e6-460808e082fd",
+            "name": "api",
+            "containerId": "",
+            "created": "2024-09-02T12:13:45.138Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "b9bce36c-bd5d-41e7-981e-bcd73f7af6c9",
+            "colId": "90015af8-dd1e-4f91-ace7-95077094506c",
+            "containerId": "f8eb2ce2-b210-481b-bcd1-00e09fa5e1ba",
+            "name": "hello_user",
+            "url": "/api/users/hello_user",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-09-02T12:14:18.306Z",
+            "modified": "2024-09-02T12:16:26.628Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json; charset=utf-8"
+                }
+            ],
+            "tests": [
+                {
+                    "type": "Content-Type",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "application/json; charset=utf-8"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json[1]",
+                    "action": "<",
+                    "value": "2"
+                }
+            ]
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "https://www.coryphamtha.site/"
+        }
+    },
+    "ref": "BdSOodqFk0yKxnef-toN_Ey-VrAOio8OTE665Em26UVK8sEy_NHkdiszz35cYl-E3fK-LCNYW3KkJq2hZ_kXqg"
+}
