@@ -17,3 +17,5 @@ products
         product_categories.id
     description varchar(500) NOT NULL
         Опис
+    image_link varchar(500) NULL
+        сылка на картинку
